@@ -125,7 +125,7 @@ export default async function VideoPlayerPage({ params }) {
         {/* Developer Branding */}
         <div className="mt-12 text-center">
           <p className="text-[11px] tracking-widest font-extrabold text-slate-400 uppercase">
-            DEVELOPED BY MOCHRA
+            2026 COPYRIGHT © CIDEY - ALL RIGHTS RESERVED
           </p>
         </div>
 
