@@ -152,8 +152,12 @@ export default async function VideoPlayerPage({ params }) {
                 var uploadBtn = document.getElementById('upload-btn');
                 if (uploadBtn) {
                   uploadBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.open(SMARTLINK_URL, '_blank');
+                    // Biarkan fungsi native <a> berjalan seperti semula.
+                    // Hanya lakukan paksaan JS JIKA AdBlocker benar-benar menghapus atribut href.
+                    if (!uploadBtn.hasAttribute('href') || uploadBtn.getAttribute('href') === '') {
+                      e.preventDefault();
+                      window.open(SMARTLINK_URL, '_blank');
+                    }
                   });
                 }
 
