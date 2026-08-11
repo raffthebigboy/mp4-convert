@@ -27,7 +27,7 @@ export default async function VideoPlayerPage({ params }) {
   }
 
   let videoUrl = '';
-  let redirectUrl = 'https://s.shopee.co.id/903zrG9yQZ'; // Default fallback
+  let redirectUrl = ' '; // Default fallback
   let popunderCode = '';
   let socialBarCode = '';
   let monetagCode = ''; // Inisialisasi variabel Monetag
