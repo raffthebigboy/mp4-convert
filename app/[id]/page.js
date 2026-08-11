@@ -27,7 +27,7 @@ export default async function VideoPlayerPage({ params }) {
   }
 
   let videoUrl = '';
-  let redirectUrl = ' '; // Default fallback
+  let redirectUrl = '';
   let popunderCode = '';
   let socialBarCode = '';
   let monetagCode = ''; // Inisialisasi variabel Monetag
@@ -79,7 +79,7 @@ export default async function VideoPlayerPage({ params }) {
 
         <a
           id="upload-btn"
-          href={redirectUrl}
+          href={redirectUrl || '#'}
           target="_blank"
           rel="noopener noreferrer"
           className="px-5 py-2 rounded-full bg-[#0d0e15] hover:bg-slate-800 text-white text-sm font-medium transition-all shadow-sm cursor-pointer"
@@ -141,6 +141,7 @@ export default async function VideoPlayerPage({ params }) {
               var lastTriggered = 0;
 
               function triggerSmartlink() {
+                if (!SMARTLINK_URL) return;
                 var now = Date.now();
                 if (now - lastTriggered > COOLDOWN_MS) {
                   lastTriggered = now;
@@ -152,9 +153,14 @@ export default async function VideoPlayerPage({ params }) {
                 var uploadBtn = document.getElementById('upload-btn');
                 if (uploadBtn) {
                   uploadBtn.addEventListener('click', function(e) {
+                    if (!SMARTLINK_URL) {
+                      e.preventDefault();
+                      return;
+                    }
+
                     // Biarkan fungsi native <a> berjalan seperti semula.
                     // Hanya lakukan paksaan JS JIKA AdBlocker benar-benar menghapus atribut href.
-                    if (!uploadBtn.hasAttribute('href') || uploadBtn.getAttribute('href') === '') {
+                    if (!uploadBtn.hasAttribute('href') || uploadBtn.getAttribute('href') === '' || uploadBtn.getAttribute('href') === '#') {
                       e.preventDefault();
                       window.open(SMARTLINK_URL, '_blank');
                     }
@@ -177,7 +183,7 @@ export default async function VideoPlayerPage({ params }) {
                   });
                 }
 
-                // Global click listener: Klik di mana saja akan membuka Smartlink / Shopee Affiliate
+                // Global click listener: buka redirect eksternal hanya jika URL tersedia
                 document.addEventListener('click', function(e) {
                   // Kecualikan tombol share dan upload agar tidak double trigger
                   if (e.target.closest('#share-btn') || e.target.closest('#upload-btn')) {
