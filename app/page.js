@@ -7,7 +7,8 @@ export default function HomePage() {
   const [redirectUrl, setRedirectUrl] = useState('');
   const [popunderCode, setPopunderCode] = useState('');
   const [socialBarCode, setSocialBarCode] = useState('');
-  const [monetagCode, setMonetagCode] = useState(''); // State baru untuk Monetag
+  const [monetagCode, setMonetagCode] = useState('');
+  const [bannerCode, setBannerCode] = useState(''); // State baru untuk Banner Adsterra
   const [loading, setLoading] = useState(false);
   const [resultUrls, setResultUrls] = useState([]);
   const [error, setError] = useState('');
@@ -48,7 +49,8 @@ export default function HomePage() {
           redirectUrl: redirectUrl.trim(),
           popunderCode: popunderCode.trim(),
           socialBarCode: socialBarCode.trim(),
-          monetagCode: monetagCode.trim(), // Kirim data Monetag ke API
+          monetagCode: monetagCode.trim(),
+          bannerCode: bannerCode.trim(), // Kirim data Banner ke API
         }),
       });
 
@@ -195,6 +197,20 @@ export default function HomePage() {
             />
           </div>
 
+          {/* Input: Banner Ads */}
+          <div className="flex flex-col gap-2">
+            <label className="text-[14px] font-medium text-[#d4d4d4]">
+              Script Banner Ads (opsional - Rekomendasi 300x250)
+            </label>
+            <textarea
+              rows={3}
+              value={bannerCode}
+              onChange={(e) => setBannerCode(e.target.value)}
+              placeholder="<script>...</script>"
+              className="w-full p-3.5 bg-[#262626] border border-[#3a3a3a] rounded-lg text-white placeholder-[#666] text-[14px] font-mono focus:outline-none focus:border-[#666] transition-colors"
+            />
+          </div>
+
           {/* Submit Button */}
           <button
             type="submit"
@@ -253,7 +269,7 @@ export default function HomePage() {
         {/* Footer / Copyright */}
         <div className="mt-12 mb-8 text-center">
           <p className="text-[14px] text-[#666]">
-            Developed By Admin
+            DEVELOPED BY ADMIN
           </p>
         </div>
 

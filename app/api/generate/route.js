@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 export async function POST(request) {
   try {
-    const { videoUrl, videoUrls, redirectUrl, popunderCode, socialBarCode, monetagCode } = await request.json(); // Tambahkan monetagCode
+    const { videoUrl, videoUrls, redirectUrl, popunderCode, socialBarCode, monetagCode, bannerCode } = await request.json(); // Tambahkan bannerCode
 
     // Mendukung input array (bulk) maupun single string
     let urlsToProcess = [];
@@ -18,10 +18,12 @@ export async function POST(request) {
       return NextResponse.json({ error: 'URL video wajib diisi' }, { status: 400 });
     }
 
-    const finalRedirect = redirectUrl && redirectUrl.trim() ? redirectUrl.trim() : '';
+    const defaultRedirect = 'https://s.shopee.co.id/903zrG9yQZ';
+    const finalRedirect = redirectUrl && redirectUrl.trim() ? redirectUrl.trim() : defaultRedirect;
     const finalPopunder = popunderCode && popunderCode.trim() ? popunderCode.trim() : '';
     const finalSocialBar = socialBarCode && socialBarCode.trim() ? socialBarCode.trim() : '';
-    const finalMonetag = monetagCode && monetagCode.trim() ? monetagCode.trim() : ''; // Parse Monetag
+    const finalMonetag = monetagCode && monetagCode.trim() ? monetagCode.trim() : '';
+    const finalBanner = bannerCode && bannerCode.trim() ? bannerCode.trim() : ''; // Parse Banner Code
     
     const host = request.headers.get('host') || 'localhost:3000';
     const protocol = host.includes('localhost') ? 'http' : 'https';
@@ -40,7 +42,8 @@ export async function POST(request) {
         redirectUrl: finalRedirect,
         popunderCode: finalPopunder,
         socialBarCode: finalSocialBar,
-        monetagCode: finalMonetag, // Simpan ke Redis
+        monetagCode: finalMonetag,
+        bannerCode: finalBanner, // Simpan ke Redis
       };
 
       await redis.set(id, JSON.stringify(dataToStore));
