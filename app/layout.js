@@ -19,6 +19,7 @@ export const metadata = {
   },
   other: {
     monetag: "15c7bbb10b56dfcf02181e57eace10cc",
+    "profiton-domain-verification": "a35490b956521e3fb355669997f13fb623c2e04197c242845412d18e7f78c08a",
   },
 };
 
