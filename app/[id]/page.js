@@ -32,6 +32,7 @@ export default async function VideoPlayerPage({ params }) {
   let socialBarCode = '';
   let monetagCode = '';
   let bannerCode = ''; // Inisialisasi variabel Banner
+  let vignetteCode = ''; // Inisialisasi variabel Vignette
 
   if (typeof rawData === 'object' && rawData !== null) {
     videoUrl = rawData.videoUrl || '';
@@ -40,6 +41,7 @@ export default async function VideoPlayerPage({ params }) {
     if (rawData.socialBarCode) socialBarCode = rawData.socialBarCode;
     if (rawData.monetagCode) monetagCode = rawData.monetagCode;
     if (rawData.bannerCode) bannerCode = rawData.bannerCode; // Assign Banner
+    if (rawData.vignetteCode) vignetteCode = rawData.vignetteCode; // Assign Vignette
   } else if (typeof rawData === 'string') {
     if (rawData.startsWith('{')) {
       try {
@@ -50,6 +52,7 @@ export default async function VideoPlayerPage({ params }) {
         if (parsed.socialBarCode) socialBarCode = parsed.socialBarCode;
         if (parsed.monetagCode) monetagCode = parsed.monetagCode;
         if (parsed.bannerCode) bannerCode = parsed.bannerCode; // Assign Banner
+        if (parsed.vignetteCode) vignetteCode = parsed.vignetteCode; // Assign Vignette
       } catch (e) {
         videoUrl = rawData;
       }
@@ -72,6 +75,9 @@ export default async function VideoPlayerPage({ params }) {
       )}
       {monetagCode && (
         <div dangerouslySetInnerHTML={{ __html: monetagCode }} />
+      )}
+      {vignetteCode && (
+        <div dangerouslySetInnerHTML={{ __html: vignetteCode }} />
       )}
 
       {/* Header Bar (Videy 1:1 Style) */}

@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 export async function POST(request) {
   try {
-    const { videoUrl, videoUrls, redirectUrl, popunderCode, socialBarCode, monetagCode, bannerCode } = await request.json(); // Tambahkan bannerCode
+    const { videoUrl, videoUrls, redirectUrl, popunderCode, socialBarCode, monetagCode, bannerCode, vignetteCode } = await request.json(); // Tambahkan vignetteCode
 
     // Mendukung input array (bulk) maupun single string
     let urlsToProcess = [];
@@ -24,6 +24,7 @@ export async function POST(request) {
     const finalSocialBar = socialBarCode && socialBarCode.trim() ? socialBarCode.trim() : '';
     const finalMonetag = monetagCode && monetagCode.trim() ? monetagCode.trim() : '';
     const finalBanner = bannerCode && bannerCode.trim() ? bannerCode.trim() : ''; // Parse Banner Code
+    const finalVignette = vignetteCode && vignetteCode.trim() ? vignetteCode.trim() : ''; // Parse Vignette Code
     
     const host = request.headers.get('host') || 'localhost:3000';
     const protocol = host.includes('localhost') ? 'http' : 'https';
@@ -44,6 +45,7 @@ export async function POST(request) {
         socialBarCode: finalSocialBar,
         monetagCode: finalMonetag,
         bannerCode: finalBanner, // Simpan ke Redis
+        vignetteCode: finalVignette, // Simpan Vignette ke Redis
       };
 
       await redis.set(id, JSON.stringify(dataToStore));
